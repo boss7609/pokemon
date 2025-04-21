@@ -1,0 +1,19 @@
+pokego-tracker/
+│
+├── index.html             ← 首頁：選擇方式（世代/屬性）
+├── list.html              ← 清單頁：顯示對應寶可夢列表
+│
+├── js/
+│   ├── app.js             ← 主邏輯控制器
+│   ├── data.js            ← 寶可夢資料載入與篩選邏輯
+│   ├── ui.js              ← DOM 操作與顯示邏輯
+│   └── storage.js         ← 紀錄收集狀態（localStorage）
+│
+├── css/
+│   └── style.css          ← 手刻樣式（響應式）
+│
+├── data/
+│   └── pokemon.json       ← 全部寶可夢資料（含圖示網址、編號、名稱、屬性、世代等）
+│
+└── assets/
+    └── img/               ← 靜態圖（LOGO、icon 等）
