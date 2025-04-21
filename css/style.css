@@ -1,0 +1,457 @@
+/* ===============================
+   CSS 變量定義
+============================== */
+:root {
+  --header-padding: 2rem 1rem;
+  --font-size-h1: 2.5rem;
+  --font-size-p: 1.1rem;
+  --button-padding: 0.8rem 0;
+  --button-font-size: 1.1rem;
+  --section-padding: 2rem;
+}
+
+/* ===============================
+   基礎樣式 & 頁面結構
+============================== */
+body {
+  font-family: "Noto Sans TC", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #79d8f8;
+  color: #333;
+  text-align: center;
+  overflow-y: scroll;
+}
+
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===============================
+   頁首樣式
+============================== */
+.header {
+  background: linear-gradient(180deg, #FF1A1A 50%, #FFFFFF 50%);
+  padding: var(--header-padding);
+  border-bottom: 4px solid #000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: var(--font-size-h1);
+  color: #FFFFFF;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header p {
+  font-size: var(--font-size-p);
+  color: #333;
+}
+
+/* ===============================
+   主要內容區
+============================== */
+.main-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 900px;
+  margin: auto;
+  padding: var(--section-padding);
+  width: 100%;
+}
+
+.section-block {
+  background: #FFFFFF;
+  padding: 1.5rem;
+  border: 2px solid #FFD700;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.section-block h2,
+#selected-types-display {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2C3E50;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* ===============================
+   按鈕樣式
+============================== */
+.button-group {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.75rem;
+  justify-items: center;
+  padding: 1rem 0;
+}
+
+.type-btn,
+.gen-btn {
+  width: 100%;
+  max-width: 120px;
+  padding: var(--button-padding);
+  border: none;
+  border-radius: 8px;
+  font-size: var(--button-font-size);
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  background: #5C6BC0;
+  color: #FFFFFF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.type-btn:hover,
+.gen-btn:hover {
+  background: #3F51B5;
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.type-btn.selected,
+.gen-btn.selected {
+  background: #4CAF50;
+  border: 2px solid #388E3C;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+}
+
+.type-btn:focus,
+.gen-btn:focus {
+  outline: 3px solid #2196F3;
+  outline-offset: 2px;
+}
+
+/* ===============================
+   寶可夢表格
+============================== */
+#pokemon-list-section {
+  display: none;
+}
+
+table.TabelJS {
+  width: 100%;
+  border-collapse: collapse;
+  background: #F5F9FF;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table.TabelJS th {
+  background: #4682B4;
+  color: #FFFFFF;
+  font-weight: bold;
+  padding: 0.625rem;
+  border: 1px solid #B0C4DE;
+  text-align: center;
+}
+
+table.TabelJS td {
+  background: #FFFFFF;
+  padding: 0.625rem;
+  border: 1px solid #B0C4DE;
+  text-align: center;
+}
+
+table.TabelJS tr:nth-child(even) td {
+  background: #F0F8FF;
+}
+
+#pokemon-list img {
+  max-width: 50px;
+  max-height: 50px;
+  margin-right: 0.625rem;
+  vertical-align: middle;
+}
+
+#pokemon-list td span {
+  vertical-align: middle;
+}
+
+/* ===============================
+   頁尾樣式
+============================== */
+.footer {
+  padding: 1rem;
+  font-size: 0.875rem;
+  color: #FFFFFF;
+  background: #2C3E50;
+  margin-top: auto;
+}
+
+/* ===============================
+   清除按鈕
+============================== */
+.clear-btn {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.clear-btn:hover {
+  background-color: #ff1a1a;
+  transform: scale(1.05);
+}
+
+.clear-btn:focus {
+  outline: 3px solid #2196F3;
+  outline-offset: 2px;
+}
+
+.show-clear-btn {
+  display: block;
+}
+
+/* ===============================
+   自定義 Checkbox
+============================== */
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  display: inline-block;
+  position: relative;
+  width: 1.375rem;
+  height: 1.375rem;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background: #FFFFFF;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+input[type="checkbox"]:hover + label {
+  border-color: #999;
+}
+
+input[type="checkbox"]:checked + label {
+  background: #4CAF50;
+  border-color: #4CAF50;
+}
+
+input[type="checkbox"]:checked + label::after {
+  content: '';
+  position: absolute;
+  left: 0.375rem;
+  top: 0.25rem;
+  width: 0.375rem;
+  height: 0.625rem;
+  border: solid #FFFFFF;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+input[type="checkbox"]:focus + label {
+  outline: 3px solid #2196F3;
+  outline-offset: 2px;
+}
+
+/* ===============================
+   可訪問性輔助樣式
+============================== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* ===============================
+   響應式設計
+============================== */
+@media (max-width: 768px) {
+  :root {
+    --header-padding: 1.5rem 1rem;
+    --font-size-h1: 2rem;
+    --font-size-p: 1rem;
+    --section-padding: 1.5rem;
+  }
+  .main-section {
+    padding: var(--section-padding);
+  }
+  .section-block {
+    padding: 1.25rem;
+  }
+  .section-block h2,
+  #selected-types-display {
+    font-size: 1.1rem;
+  }
+  .button-group {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+  }
+  .type-btn,
+  .gen-btn {
+    max-width: 110px;
+    padding: 0.6rem 0;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --header-padding: 1rem 0.75rem;
+    --font-size-h1: 1.75rem;
+    --font-size-p: 0.9rem;
+    --section-padding: 1rem;
+    --button-padding: 0.5rem 0;
+    --button-font-size: 0.9rem;
+  }
+  .main-section {
+    padding: var(--section-padding);
+  }
+  .section-block {
+    padding: 1rem;
+  }
+  .section-block h2,
+  #selected-types-display {
+    font-size: 1rem;
+    padding: 0.3rem 0.6rem;
+  }
+  .button-group {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 0.75rem;
+  }
+  .type-btn,
+  .gen-btn {
+    min-height: 44px;
+    padding: var(--button-padding);
+    font-size: var(--button-font-size);
+  }
+  table.TabelJS {
+    display: block;
+  }
+  table.TabelJS thead {
+    display: none;
+  }
+  table.TabelJS tbody,
+  table.TabelJS tr {
+    display: block;
+  }
+  table.TabelJS tr {
+    margin-bottom: 1rem;
+    border: 1px solid #B0C4DE;
+    border-radius: 8px;
+    background: #FFFFFF;
+    padding: 0.5rem;
+  }
+  table.TabelJS td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border: none;
+    text-align: left;
+  }
+  table.TabelJS td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #4682B4;
+    width: 40%;
+  }
+  table.TabelJS td img {
+    max-width: 35px;
+    max-height: 35px;
+  }
+  .clear-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    bottom: 15px;
+    right: 15px;
+  }
+  input[type="checkbox"] + label {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+  input[type="checkbox"]:checked + label::after {
+    left: 0.25rem;
+    top: 0.125rem;
+    width: 0.25rem;
+    height: 0.5rem;
+  }
+  .footer {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 400px) {
+  :root {
+    --header-padding: 0.75rem 0.5rem;
+    --font-size-h1: 1.5rem;
+    --font-size-p: 0.8rem;
+    --section-padding: 0.75rem;
+    --button-padding: 0.4rem 0;
+    --button-font-size: 0.85rem;
+  }
+  .main-section {
+    padding: var(--section-padding);
+  }
+  .section-block {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+  }
+  .section-block h2,
+  #selected-types-display {
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+  }
+  .button-group {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.5rem;
+  }
+  .type-btn,
+  .gen-btn {
+    min-height: 44px;
+    padding: var(--button-padding);
+    font-size: var(--button-font-size);
+  }
+  table.TabelJS td {
+    padding: 0.25rem;
+    font-size: 0.8rem;
+  }
+  .clear-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    bottom: 10px;
+    right: 10px;
+  }
+  input[type="checkbox"] + label {
+    width: 1rem;
+    height: 1rem;
+  }
+  input[type="checkbox"]:checked + label::after {
+    left: 0.1875rem;
+    top: 0.0625rem;
+    width: 0.1875rem;
+    height: 0.4375rem;
+  }
+  .footer {
+    padding: 0.5rem;
+    font-size: 0.7rem;
+  }
+}
