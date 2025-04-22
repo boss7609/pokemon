@@ -6,7 +6,6 @@ let selectedGeneration = null;
 let isAllSelected = false;
 
 /* ---------- 資料載入與狀態管理 ---------- */
-
 // 從 JSON 載入寶可夢資料
 fetch('data/pokemon.json')
   .then(response => response.json())
@@ -15,7 +14,6 @@ fetch('data/pokemon.json')
     loadCollectedStatus();
     console.log("載入完成，共有", pokemonData.length, "筆資料");
   });
-
 // 儲存蒐集狀態至 localStorage
 function saveCollectedStatus() {
   const collectedMap = {};
@@ -24,7 +22,6 @@ function saveCollectedStatus() {
   });
   localStorage.setItem('collectedPokemon', JSON.stringify(collectedMap));
 }
-
 // 載入蒐集狀態
 function loadCollectedStatus() {
   const collectedMap = JSON.parse(localStorage.getItem('collectedPokemon')) || {};
@@ -32,20 +29,25 @@ function loadCollectedStatus() {
     if (collectedMap[p.index]) p.collected = true;
   });
 }
-
 /* ---------- 畫面更新 ---------- */
-
 // 顯示寶可夢列表
 function displayPokemon() {
   const listContainer = document.getElementById('pokemon-list');
   const countContainer = document.getElementById('pokemon-count');
+  const generationDisplay = document.getElementById('generation-display');
   listContainer.innerHTML = '';
-
+  //const collectedCount = pokemonData.filter(p => p.collected).length; 統計全部
   const collectedCount = filteredPokemon.filter(p => p.collected).length;
-
+    // 顯示目前選擇的世代
+    if (isAllSelected) {
+      generationDisplay.textContent = '「世代」查看：全部寶可夢';
+    } else if (selectedGeneration !== null) {
+      generationDisplay.textContent = `「世代」查看：第 ${selectedGeneration} 世代`;
+    } else {
+      generationDisplay.textContent = '「世代」查看：未選擇';
+    }
   filteredPokemon.forEach(pokemon => {
     const row = document.createElement('tr');
-
     // 蒐集勾選框
     const checkCell = document.createElement('td');
     const checkboxWrapper = document.createElement('div');
@@ -55,8 +57,11 @@ function displayPokemon() {
     checkbox.checked = pokemon.collected || false;
     checkbox.addEventListener('change', () => {
       pokemon.collected = checkbox.checked;
+      // 確保找到對應的寶可夢
       const globalPokemon = pokemonData.find(p => p.index === pokemon.index);
-      if (globalPokemon) globalPokemon.collected = checkbox.checked;
+      if (globalPokemon) {
+        globalPokemon.collected = checkbox.checked;
+      }
       saveCollectedStatus();
       displayPokemon();
     });
@@ -65,48 +70,52 @@ function displayPokemon() {
     checkboxWrapper.append(checkbox, checkboxLabel);
     checkCell.appendChild(checkboxWrapper);
     row.appendChild(checkCell);
-
     // 編號與名稱圖片
-    row.innerHTML += `
-      <td>${pokemon.index}</td>
-      <td>
-        <img src="images/pokemon_images/${pokemon.index}_${pokemon.name}.png" alt="${pokemon.name}" width="50" style="margin-right: 8px;">
-        <span>${pokemon.name}</span>
-      </td>
-      <td>${pokemon.types.join('/')}</td>
-      <td>${pokemon.cp}</td>
-      <td>${pokemon.atk}</td>
-      <td>${pokemon.def}</td>
-      <td>${pokemon.sta}</td>
-      <td>${pokemon.generation}</td>
-    `;
-
+    const indexCell = document.createElement('td');
+indexCell.textContent = pokemon.index;
+const nameCell = document.createElement('td');
+const img = document.createElement('img');
+img.src = `images/pokemon_images/${pokemon.index}_${pokemon.name}.png`;
+img.alt = pokemon.name;
+img.width = 50;
+img.style.marginRight = '8px';
+const nameSpan = document.createElement('span');
+nameSpan.textContent = pokemon.name;
+nameCell.appendChild(img);
+nameCell.appendChild(nameSpan);
+const typeCell = document.createElement('td');
+typeCell.textContent = pokemon.types.join('/');
+const cpCell = document.createElement('td');
+cpCell.textContent = pokemon.cp;
+const atkCell = document.createElement('td');
+atkCell.textContent = pokemon.atk;
+const defCell = document.createElement('td');
+defCell.textContent = pokemon.def;
+const staCell = document.createElement('td');
+staCell.textContent = pokemon.sta;
+const genCell = document.createElement('td');
+genCell.textContent = pokemon.generation;
+// 加入所有 cell 到 row
+row.append(checkCell, indexCell, nameCell, typeCell, cpCell, atkCell, defCell, staCell, genCell);
     listContainer.appendChild(row);
   });
-
   countContainer.textContent = `目前篩選共有 ${filteredPokemon.length} 隻寶可夢，已蒐集 ${collectedCount} 隻`;
   document.getElementById('pokemon-list-section').style.display = 'block';
 }
-
 /* ---------- 篩選邏輯 ---------- */
-
 // 應用篩選條件
 function applyFilters() {
   let tempFiltered = [...pokemonData];
-
   if (selectedGeneration !== null) {
     tempFiltered = tempFiltered.filter(p => p.generation === String(selectedGeneration));
   }
-
   if (selectedTypes.length > 0) {
     tempFiltered = tempFiltered.filter(p => {
       const lowerTypes = p.types.map(t => t.toLowerCase());
       return selectedTypes.every(type => lowerTypes.includes(type));
     });
   }
-
   filteredPokemon = tempFiltered;
-
   if (selectedGeneration !== null || selectedTypes.length > 0 || isAllSelected) {
     displayPokemon();
   } else {
@@ -116,6 +125,7 @@ function applyFilters() {
 
 // 世代篩選
 function filterByGen(gen) {
+  // 如果選擇了 "全部" 這個按鈕，則清除世代選擇
   if (gen === 'all') {
     isAllSelected = !isAllSelected;
     selectedGeneration = null;
@@ -129,13 +139,19 @@ function filterByGen(gen) {
     }
   }
 
+  // 更新所有 gen-btn 的 selected 狀態
   document.querySelectorAll('.gen-btn').forEach(btn => {
-    const btnGen = btn.textContent.split(' ')[1];
-    btn.classList.toggle('selected', (btn.id === 'All' && isAllSelected) || (parseInt(btnGen) === selectedGeneration));
+    const btnGen = btn.id.split('-')[1]; // 取得按鈕的世代數字（例如 "gen-1" → "1"）
+    const isSelected = 
+      (btn.id === 'All' && isAllSelected) || // 檢查是否為「全部」按鈕且被選中
+      (parseInt(btnGen) === selectedGeneration); // 檢查是否為當前選中的世代
+    btn.classList.toggle('selected', isSelected);
   });
 
   applyFilters();
 }
+
+
 
 // 屬性篩選
 function filterByType(type) {
@@ -143,16 +159,16 @@ function filterByType(type) {
     alert('最多只能選擇兩種屬性！');
     return;
   }
-
   selectedTypes = selectedTypes.includes(type)
     ? selectedTypes.filter(t => t !== type)
     : [...selectedTypes, type];
-
   document.querySelectorAll('.type-btn').forEach(btn => {
     const btnType = btn.id.replace('-button', '');
     btn.classList.toggle('selected', selectedTypes.includes(btnType));
   });
-
+  document.querySelectorAll('.type-btn.selected').forEach((btn, index) => {
+    btn.setAttribute('data-order', index + 1);
+  });
   const typeDisplay = document.getElementById('selected-types-display');
   const typeLabels = {
     normal: '一般', fire: '火', water: '水', grass: '草', electric: '電',
@@ -160,29 +176,24 @@ function filterByType(type) {
     psychic: '超能', bug: '蟲', rock: '岩石', ghost: '幽靈', dragon: '龍',
     dark: '惡', steel: '鋼', fairy: '妖精'
   };
-
   typeDisplay.textContent = selectedTypes.length > 0
     ? `依屬性：${selectedTypes.map(t => typeLabels[t]).join(' 跟 ')}`
     : '依屬性：';
-
   applyFilters();
 }
 
 /* ---------- 其他操作 ---------- */
-
 // 顯示特定世代（給按鈕綁定）
 function showGeneration(gen) {
   filterByGen(gen);
 }
-
 // 清除所有蒐集資料
 document.getElementById('clear-collection-btn').addEventListener('click', () => {
   if (confirm('你確定要清除所有蒐集資料嗎？這將無法恢復！')) {
     pokemonData.forEach(p => p.collected = false);
     localStorage.removeItem('collectedPokemon');
-    applyFilters();
+    location.reload(); // ⬅️ 加這行會整頁重新載入
   }
 });
-
 // 初始顯示懸浮清除按鈕
 document.getElementById('clear-collection-btn').classList.add('show-clear-btn');
