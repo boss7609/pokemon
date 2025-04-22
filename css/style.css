@@ -119,17 +119,19 @@ body {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.type-btn.selected,
-.gen-btn.selected {
-  background: #4CAF50;
-  border: 2px solid #388E3C;
-  box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
-}
-
 .type-btn:focus,
 .gen-btn:focus {
   outline: 3px solid #2196F3;
   outline-offset: 2px;
+}
+
+.type-btn.selected,
+.gen-btn.selected {
+  background: #FF5722; /* 選中時的背景色 */
+  color: #FFFFFF; /* 選中時的文字顏色 */
+  transform: scale(1.05); /* 輕微放大效果 */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 更明顯的陰影 */
+  border: 2px solid #E64A19; /* 邊框效果 */
 }
 
 /* ===============================
