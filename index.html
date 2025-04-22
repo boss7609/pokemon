@@ -25,7 +25,7 @@
     <main class="main-section">
       <!-- 依世代 -->
       <section class="section-block">
-        <h2>「世代」查看</h2>
+        <h2><div id="generation-display" class="filter-info">「世代」查看： 未選擇</div></h2>
         <div class="button-group">
           <button id="All" class="gen-btn" onclick="filterByGen('all')" aria-label="篩選所有世代">全部</button>
           <button id="gen-1" class="gen-btn" onclick="filterByGen(1)" aria-label="篩選第一世代">第一世代</button>
@@ -41,7 +41,7 @@
 
       <!-- 依屬性 -->
       <section class="section-block">
-        <p id="selected-types-display">依屬性：</p>
+        <p id="selected-types-display">依屬性： 未選擇</p>
         <div class="button-group">
           <button id="normal-button" class="type-btn" onclick="filterByType('normal')" aria-label="篩選一般屬性">
             <span aria-hidden="true">🌀</span> 一般
