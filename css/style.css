@@ -1,26 +1,76 @@
 /* ===============================
-   CSS 變量定義
-============================== */
+   CSS 變數定義
+=============================== */
 :root {
+  /* 顏色 */
+  --primary-color: #FF1A1A;
+  --secondary-color: #FFD700;
+  --dark-color: #2C3E50;
+  --light-color: #FFFFFF;
+  --accent-color: #5C6BC0;
+  --accent-hover: #3F51B5;
+  --selected-color: #FF5722;
+  --selected-border: #E64A19;
+  --progress-color: #4CAF50;
+  --error-color: #ff4d4d;
+  --error-hover: #ff1a1a;
+  
+  /* 尺寸 */
   --header-padding: 2rem 1rem;
   --font-size-h1: 2.5rem;
   --font-size-p: 1.1rem;
   --button-padding: 0.8rem 0;
   --button-font-size: 1.1rem;
   --section-padding: 2rem;
+  --border-radius: 8px;
+  
+  /* 陰影 */
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+  
+  /* 動畫 */
+  --transition: all 0.3s ease;
 }
 
 /* ===============================
-   基礎樣式 & 頁面結構
-============================== */
+   基礎樣式 & 結構
+=============================== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+  background: #b0dffb;
+}
+
+html::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/images/header_bg.jpg') center calc(100%) repeat-x;
+  background-size: 20% 20%;
+  animation: navMove 30s linear infinite;
+  z-index: -1;
+}
+
+@keyframes navMove {
+  0% { background-position: 0% calc(100%); }
+  100% { background-position: 100% calc(100%); }
+}
+
 body {
-  font-family: "Noto Sans TC", sans-serif;
   margin: 0;
   padding: 0;
-  background: #79d8f8;
-  color: #333;
+  font-family: "Noto Sans TC", sans-serif;
+  overflow-x: hidden;
   text-align: center;
-  overflow-y: scroll;
+  background: transparent;
 }
 
 .page-container {
@@ -31,46 +81,48 @@ body {
 
 /* ===============================
    頁首樣式
-============================== */
+=============================== */
 .header {
-  background: linear-gradient(180deg, #FF1A1A 50%, #FFFFFF 50%);
+  background: linear-gradient(180deg, var(--primary-color) 50%, var(--light-color) 50%);
   padding: var(--header-padding);
   border-bottom: 4px solid #000;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 .header h1 {
   margin: 0;
   font-size: var(--font-size-h1);
-  color: #FFFFFF;
+  color: var(--light-color);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .header p {
   font-size: var(--font-size-p);
   color: #333;
+  margin: 0.5rem 0 0;
 }
 
 /* ===============================
    主要內容區
-============================== */
+=============================== */
 .main-section {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 3rem;
   max-width: 900px;
-  margin: auto;
+  margin: 0 auto;
   padding: var(--section-padding);
   width: 100%;
 }
 
 .section-block {
-  background: #FFFFFF;
+  background: var(--light-color);
+  border: 2px solid var(--secondary-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
   padding: 1.5rem;
-  border: 2px solid #FFD700;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 1rem;
 }
 
 .section-block h2,
@@ -78,15 +130,15 @@ body {
   display: inline-block;
   font-size: 1.2rem;
   font-weight: bold;
-  color: #2C3E50;
+  color: var(--dark-color);
   padding: 0.5rem 1rem;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   margin-bottom: 1rem;
 }
 
 /* ===============================
    按鈕樣式
-============================== */
+=============================== */
 .button-group {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -100,23 +152,22 @@ body {
   width: 100%;
   max-width: 120px;
   padding: var(--button-padding);
-  border: none;
-  border-radius: 8px;
   font-size: var(--button-font-size);
   font-weight: bold;
-  text-align: center;
+  border: none;
+  border-radius: var(--border-radius);
+  background: var(--accent-color);
+  color: var(--light-color);
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  background: #5C6BC0;
-  color: #FFFFFF;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
 }
 
 .type-btn:hover,
 .gen-btn:hover {
-  background: #3F51B5;
+  background: var(--accent-hover);
   transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-lg);
 }
 
 .type-btn:focus,
@@ -127,46 +178,65 @@ body {
 
 .type-btn.selected,
 .gen-btn.selected {
-  background: #FF5722; /* 選中時的背景色 */
-  color: #FFFFFF; /* 選中時的文字顏色 */
-  transform: scale(1.05); /* 輕微放大效果 */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 更明顯的陰影 */
-  border: 2px solid #E64A19; /* 邊框效果 */
+  background: var(--selected-color);
+  color: var(--light-color);
+  border: 2px solid var(--selected-border);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
 }
 
 /* ===============================
    寶可夢表格
-============================== */
+=============================== */
 #pokemon-list-section {
   display: none;
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 1rem;
 }
 
 table.TabelJS {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
   background: #F5F9FF;
-  border-radius: 8px;
-  overflow: hidden;
+  border-radius: var(--border-radius);
+  margin: 1rem auto;
+  table-layout: fixed;
+}
+
+table.TabelJS th,
+table.TabelJS td {
+  padding: 0.625rem;
+  border: 1px solid #B0C4DE;
+  text-align: center;
 }
 
 table.TabelJS th {
   background: #4682B4;
-  color: #FFFFFF;
+  color: var(--light-color);
   font-weight: bold;
-  padding: 0.625rem;
-  border: 1px solid #B0C4DE;
-  text-align: center;
-}
-
-table.TabelJS td {
-  background: #FFFFFF;
-  padding: 0.625rem;
-  border: 1px solid #B0C4DE;
-  text-align: center;
+  position: sticky;
+  top: 0;
 }
 
 table.TabelJS tr:nth-child(even) td {
   background: #F0F8FF;
+}
+
+table.TabelJS th:nth-child(3),
+table.TabelJS td:nth-child(3) {
+  width: 20%;
+}
+
+table.TabelJS th:nth-child(4),
+table.TabelJS td:nth-child(4) {
+  width: 15%;
+}
+
+table.TabelJS th:not(:nth-child(3)):not(:nth-child(4)),
+table.TabelJS td:not(:nth-child(3)):not(:nth-child(4)) {
+  width: 10%;
 }
 
 #pokemon-list img {
@@ -178,39 +248,165 @@ table.TabelJS tr:nth-child(even) td {
 
 #pokemon-list td span {
   vertical-align: middle;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ===============================
-   頁尾樣式
-============================== */
-.footer {
-  padding: 1rem;
-  font-size: 0.875rem;
-  color: #FFFFFF;
-  background: #2C3E50;
-  margin-top: auto;
+   工具按鈕與面板
+=============================== */
+#sidebar {
+  position: fixed;
+  top: 20%;
+  left: 10px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+}
+
+#sidebar button {
+  font-size: 20px;
+  background-color: var(--light-color);
+  padding: 8px;
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+}
+
+#sidebar button:hover {
+  transform: scale(1.1);
+}
+
+.side-panel {
+  position: fixed;
+  top: 50%;
+  left: 60px;
+  transform: translateY(-50%);
+  background-color: var(--light-color);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  width: 220px;
+  box-shadow: var(--shadow-md);
+  z-index: 999;
+}
+
+.side-panel.hidden {
+  display: none;
+}
+
+/* 搜尋面板 */
+#search-panel {
+  border-radius: var(--border-radius);
+  position: fixed;
+  background: var(--light-color);
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 250px;
+  box-shadow: var(--shadow-sm);
+  z-index: 1001;
+}
+
+#search-panel.hidden {
+  display: none;
+}
+
+
+#search-input {
+  display: block;
+  width: calc(100% - 20px);
+  margin: 0 auto;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: calc(var(--border-radius) - 2px);
+  font-size: 14px;
+  outline: none;
+  transition: var(--transition);
+}
+
+#search-input:focus {
+  border-color: #79d8f8;
+  box-shadow: 0 0 0 2px rgba(121, 216, 248, 0.3);
+}
+
+#search-results {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 10px;
+  padding-left: 0;
+  list-style: none;
+}
+
+#search-results li {
+  padding: 6px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+#search-results li:hover {
+  background-color: #f0f0f0;
+}
+
+/* 統計面板 */
+#stats-panel {
+  width: 300px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.stats-section {
+  margin-bottom: 15px;
+}
+
+.stats-section h3,
+.stats-section h4 {
+  margin: 10px 0 5px;
+  color: var(--dark-color);
+}
+
+.progress-bar {
+  background-color: #e0e0e0;
+  width: 100%;
+  height: 20px;
+  border-radius: 10px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  background-color: var(--progress-color);
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
 }
 
 /* ===============================
    清除按鈕
-============================== */
+=============================== */
 .clear-btn {
-  background-color: #ff4d4d;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  display: none;
   position: fixed;
   bottom: 20px;
   right: 20px;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  padding: 10px 20px;
+  border: none;
+  border-radius: calc(var(--border-radius) - 3px);
+  background: var(--error-color);
+  color: var(--light-color);
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  z-index: 1000;
 }
 
 .clear-btn:hover {
-  background-color: #ff1a1a;
+  background: var(--error-hover);
   transform: scale(1.05);
 }
 
@@ -219,27 +415,23 @@ table.TabelJS tr:nth-child(even) td {
   outline-offset: 2px;
 }
 
-.show-clear-btn {
-  display: block;
-}
-
 /* ===============================
    自定義 Checkbox
-============================== */
+=============================== */
 input[type="checkbox"] {
   display: none;
 }
 
 input[type="checkbox"] + label {
   display: inline-block;
-  position: relative;
   width: 1.375rem;
   height: 1.375rem;
   border: 2px solid #ccc;
   border-radius: 4px;
-  background: #FFFFFF;
+  background: var(--light-color);
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
+  position: relative;
+  transition: var(--transition);
 }
 
 input[type="checkbox"]:hover + label {
@@ -247,8 +439,8 @@ input[type="checkbox"]:hover + label {
 }
 
 input[type="checkbox"]:checked + label {
-  background: #4CAF50;
-  border-color: #4CAF50;
+  background: var(--progress-color);
+  border-color: var(--progress-color);
 }
 
 input[type="checkbox"]:checked + label::after {
@@ -258,7 +450,7 @@ input[type="checkbox"]:checked + label::after {
   top: 0.25rem;
   width: 0.375rem;
   height: 0.625rem;
-  border: solid #FFFFFF;
+  border: solid var(--light-color);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
@@ -269,8 +461,91 @@ input[type="checkbox"]:focus + label {
 }
 
 /* ===============================
-   可訪問性輔助樣式
-============================== */
+   頁尾
+=============================== */
+.footer {
+  margin-top: auto;
+  padding: 1rem;
+  background: var(--dark-color);
+  color: var(--light-color);
+  font-size: 0.875rem;
+}
+
+/* 右下角寵物樣式 */
+#corner-pet-container {
+  position: fixed;
+  right: 20px;
+  bottom: calc(60px + 20px); /* Footer 高度 + 間距 */
+  width: 120px;
+  height: 120px;
+  z-index: 1000; /* 確保高於其他元素但低於彈窗 */
+  transition: all 0.3s ease;
+  pointer-events: auto; /* 重點修正：允許點擊 */
+}
+
+
+#corner-pet {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+  user-select: none;
+  -webkit-user-drag: none;
+  animation: gentleBounce 2s ease-in-out infinite;
+}
+
+/* 滑鼠互動效果 */
+#corner-pet-container:hover {
+  transform: scale(1.1) translateY(-5px);
+}
+
+#corner-pet-container:hover #corner-pet {
+  animation: excitedBounce 0.8s ease infinite;
+}
+
+/* 動畫效果 */
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes excitedBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* 寵物對話泡泡 */
+.pet-message-bubble {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  white-space: nowrap;
+  margin-bottom: 10px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.pet-message-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: white;
+}
+
+
+/* ===============================
+   無障礙輔助
+=============================== */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -284,7 +559,7 @@ input[type="checkbox"]:focus + label {
 
 /* ===============================
    響應式設計
-============================== */
+=============================== */
 @media (max-width: 768px) {
   :root {
     --header-padding: 1.5rem 1rem;
@@ -292,20 +567,11 @@ input[type="checkbox"]:focus + label {
     --font-size-p: 1rem;
     --section-padding: 1.5rem;
   }
-  .main-section {
-    padding: var(--section-padding);
-  }
-  .section-block {
-    padding: 1.25rem;
-  }
-  .section-block h2,
-  #selected-types-display {
-    font-size: 1.1rem;
-  }
+
   .button-group {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.6rem;
+    grid-template-columns: repeat(3, 1fr);
   }
+
   .type-btn,
   .gen-btn {
     max-width: 110px;
@@ -323,137 +589,54 @@ input[type="checkbox"]:focus + label {
     --button-padding: 0.5rem 0;
     --button-font-size: 0.9rem;
   }
-  .main-section {
-    padding: var(--section-padding);
+
+  .button-group {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   }
-  .section-block {
-    padding: 1rem;
-  }
+
   .section-block h2,
   #selected-types-display {
     font-size: 1rem;
     padding: 0.3rem 0.6rem;
   }
-  .button-group {
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-    gap: 0.75rem;
-  }
-  .type-btn,
-  .gen-btn {
-    min-height: 44px;
-    padding: var(--button-padding);
-    font-size: var(--button-font-size);
-  }
-  table.TabelJS {
-    display: block;
-  }
-  table.TabelJS thead {
-    display: none;
-  }
-  table.TabelJS tbody,
-  table.TabelJS tr {
-    display: block;
-  }
-  table.TabelJS tr {
-    margin-bottom: 1rem;
-    border: 1px solid #B0C4DE;
-    border-radius: 8px;
-    background: #FFFFFF;
-    padding: 0.5rem;
-  }
-  table.TabelJS td {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem;
-    border: none;
-    text-align: left;
-  }
-  table.TabelJS td::before {
-    content: attr(data-label);
-    font-weight: bold;
-    color: #4682B4;
-    width: 40%;
-  }
-  table.TabelJS td img {
-    max-width: 35px;
-    max-height: 35px;
-  }
+
   .clear-btn {
     padding: 8px 16px;
     font-size: 0.9rem;
     bottom: 15px;
     right: 15px;
   }
+
   input[type="checkbox"] + label {
     width: 1.125rem;
     height: 1.125rem;
   }
+
   input[type="checkbox"]:checked + label::after {
     left: 0.25rem;
     top: 0.125rem;
     width: 0.25rem;
     height: 0.5rem;
   }
+
   .footer {
     padding: 0.5rem;
     font-size: 0.75rem;
+    height: 60px
   }
-}
-
-@media (max-width: 400px) {
-  :root {
-    --header-padding: 0.75rem 0.5rem;
-    --font-size-h1: 1.5rem;
-    --font-size-p: 0.8rem;
-    --section-padding: 0.75rem;
-    --button-padding: 0.4rem 0;
-    --button-font-size: 0.85rem;
+  
+  #sidebar {
+    top: auto;
+    bottom: 80px;
+    left: 10px;
+    transform: none;
+    flex-direction: row;
   }
-  .main-section {
-    padding: var(--section-padding);
-  }
-  .section-block {
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-  }
-  .section-block h2,
-  #selected-types-display {
-    font-size: 0.9rem;
-    padding: 0.25rem 0.5rem;
-  }
-  .button-group {
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 0.5rem;
-  }
-  .type-btn,
-  .gen-btn {
-    min-height: 44px;
-    padding: var(--button-padding);
-    font-size: var(--button-font-size);
-  }
-  table.TabelJS td {
-    padding: 0.25rem;
-    font-size: 0.8rem;
-  }
-  .clear-btn {
-    padding: 6px 12px;
-    font-size: 0.8rem;
-    bottom: 10px;
-    right: 10px;
-  }
-  input[type="checkbox"] + label {
-    width: 1rem;
-    height: 1rem;
-  }
-  input[type="checkbox"]:checked + label::after {
-    left: 0.1875rem;
-    top: 0.0625rem;
-    width: 0.1875rem;
-    height: 0.4375rem;
-  }
-  .footer {
-    padding: 0.5rem;
-    font-size: 0.7rem;
+  
+  .side-panel {
+    top: auto;
+    bottom: 120px;
+    left: 10px;
+    transform: none;
   }
 }
