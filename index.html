@@ -1,153 +1,143 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Pokémon GO 收藏追蹤工具，幫助玩家篩選寶可夢屬性和世代，管理你的收藏進度！" />
-  <meta name="keywords" content="Pokémon GO, 寶可夢, 收藏追蹤, 屬性篩選, 世代篩選" />
-  <meta property="og:title" content="Pokémon GO 收藏追蹤" />
-  <meta property="og:description" content="追蹤你的 Pokémon GO 收藏進度，支援屬性和世代篩選！" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="你的網站URL" />
-  <meta property="og:image" content="你的預覽圖片URL" />
-  <title>Pokémon GO 收藏追蹤</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" type="image/png" href="images/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pokémon GO 收藏追蹤工具，幫助玩家篩選寶可夢屬性和世代，管理你的收藏進度！">
+    <meta name="keywords" content="Pokémon GO, 寶可夢, 收藏追蹤, 屬性篩選, 世代篩選">
+    <meta property="og:title" content="Pokémon GO 收藏追蹤">
+    <meta property="og:description" content="追蹤你的 Pokémon GO 收藏進度，支援屬性和世代篩選！">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="你的網站URL">
+    <meta property="og:image" content="你的預覽圖片URL">
+    <title>Pokémon GO 收藏追蹤</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
+<!-- 在 </body> 標籤前添加 -->
+<div id="corner-pet-container">
+  <img id="corner-pet" src="images/pets/pikachu.png" alt="小寵物">
+</div>
 <body>
-  <div class="page-container">
-    <header class="header">
-      <h1>Pokémon GO 收藏追蹤</h1>
-      <p>追蹤你的 Pokémon GO 收藏進度！</p>
-    </header>
+    <div class="page-container">
+        <header class="header">
+            <h1>Pokémon GO 收藏追蹤</h1>
+            <p>追蹤你的 Pokémon GO 收藏進度！</p>
+        </header>
 
-    <main class="main-section">
-      <!-- 依世代 -->
-      <section class="section-block">
-        <h2><div id="generation-display" class="filter-info">「世代」查看： 未選擇</div></h2>
-        <div class="button-group">
-          <button id="All" class="gen-btn" onclick="filterByGen('all')" aria-label="篩選所有世代">全部</button>
-          <button id="gen-1" class="gen-btn" onclick="filterByGen(1)" aria-label="篩選第一世代">第一世代</button>
-          <button id="gen-2" class="gen-btn" onclick="filterByGen(2)" aria-label="篩選第二世代">第二世代</button>
-          <button id="gen-3" class="gen-btn" onclick="filterByGen(3)" aria-label="篩選第三世代">第三世代</button>
-          <button id="gen-4" class="gen-btn" onclick="filterByGen(4)" aria-label="篩選第四世代">第四世代</button>
-          <button id="gen-5" class="gen-btn" onclick="filterByGen(5)" aria-label="篩選第五世代">第五世代</button>
-          <button id="gen-6" class="gen-btn" onclick="filterByGen(6)" aria-label="篩選第六世代">第六世代</button>
-          <button id="gen-7" class="gen-btn" onclick="filterByGen(7)" aria-label="篩選第七世代">第七世代</button>
-          <button id="gen-8" class="gen-btn" onclick="filterByGen(8)" aria-label="篩選第八世代">第八世代</button>
+        <main class="main-section">
+            <!-- 依世代 -->
+            <section class="section-block">
+                <h2>
+                    <div id="generation-display" class="filter-info">「世代」查看： 未選擇</div>
+                </h2>
+                <div class="button-group">
+                    <button id="All" class="gen-btn" onclick="filterByGen('all')" aria-label="篩選所有世代">全部</button>
+                    <button id="gen-1" class="gen-btn" onclick="filterByGen(1)" aria-label="篩選第一世代">第一世代</button>
+                    <button id="gen-2" class="gen-btn" onclick="filterByGen(2)" aria-label="篩選第二世代">第二世代</button>
+                    <button id="gen-3" class="gen-btn" onclick="filterByGen(3)" aria-label="篩選第三世代">第三世代</button>
+                    <button id="gen-4" class="gen-btn" onclick="filterByGen(4)" aria-label="篩選第四世代">第四世代</button>
+                    <button id="gen-5" class="gen-btn" onclick="filterByGen(5)" aria-label="篩選第五世代">第五世代</button>
+                    <button id="gen-6" class="gen-btn" onclick="filterByGen(6)" aria-label="篩選第六世代">第六世代</button>
+                    <button id="gen-7" class="gen-btn" onclick="filterByGen(7)" aria-label="篩選第七世代">第七世代</button>
+                    <button id="gen-8" class="gen-btn" onclick="filterByGen(8)" aria-label="篩選第八世代">第八世代</button>
+                </div>
+            </section>
+
+            <!-- 依屬性 -->
+            <section class="section-block">
+                <p id="selected-types-display">依屬性： 未選擇</p>
+                <div class="button-group">
+                    <button id="normal-button" class="type-btn" onclick="filterByType('normal')" aria-label="篩選一般屬性">
+                        <span aria-hidden="true">🌀</span>一般<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="fire-button" class="type-btn" onclick="filterByType('fire')" aria-label="篩選火屬性">
+                        <span aria-hidden="true">🔥</span>火<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="water-button" class="type-btn" onclick="filterByType('water')" aria-label="篩選水屬性">
+                        <span aria-hidden="true">💧</span>水<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="grass-button" class="type-btn" onclick="filterByType('grass')" aria-label="篩選草屬性">
+                        <span aria-hidden="true">🌿</span>草<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="electric-button" class="type-btn" onclick="filterByType('electric')" aria-label="篩選電屬性">
+                        <span aria-hidden="true">⚡</span>電<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="ice-button" class="type-btn" onclick="filterByType('ice')" aria-label="篩選冰屬性">
+                        <span aria-hidden="true">❄️</span>冰<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="fighting-button" class="type-btn" onclick="filterByType('fighting')" aria-label="篩選格鬥屬性">
+                        <span aria-hidden="true">🥊</span>格鬥<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="poison-button" class="type-btn" onclick="filterByType('poison')" aria-label="篩選毒屬性">
+                        <span aria-hidden="true">☠️</span>毒<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="ground-button" class="type-btn" onclick="filterByType('ground')" aria-label="篩選地面屬性">
+                        <span aria-hidden="true">⛰️</span>地面<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="flying-button" class="type-btn" onclick="filterByType('flying')" aria-label="篩選飛行屬性">
+                        <span aria-hidden="true">🕊️</span>飛行<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="psychic-button" class="type-btn" onclick="filterByType('psychic')" aria-label="篩選超能屬性">
+                        <span aria-hidden="true">🔮</span>超能<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="bug-button" class="type-btn" onclick="filterByType('bug')" aria-label="篩選蟲屬性">
+                        <span aria-hidden="true">🐛</span>蟲<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="rock-button" class="type-btn" onclick="filterByType('rock')" aria-label="篩選岩石屬性">
+                        <span aria-hidden="true">🗿</span>岩石<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="ghost-button" class="type-btn" onclick="filterByType('ghost')" aria-label="篩選幽靈屬性">
+                        <span aria-hidden="true">👻</span>幽靈<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="dragon-button" class="type-btn" onclick="filterByType('dragon')" aria-label="篩選龍屬性">
+                        <span aria-hidden="true">🐉</span>龍<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="dark-button" class="type-btn" onclick="filterByType('dark')" aria-label="篩選惡屬性">
+                        <span aria-hidden="true">🌑</span>惡<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="steel-button" class="type-btn" onclick="filterByType('steel')" aria-label="篩選鋼屬性">
+                        <span aria-hidden="true">⚙️</span>鋼<span class="sr-only">屬性</span>
+                    </button>
+                    <button id="fairy-button" class="type-btn" onclick="filterByType('fairy')" aria-label="篩選妖精屬性">
+                        <span aria-hidden="true">✨</span>妖精<span class="sr-only">屬性</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 顯示寶可夢列表 -->
+            <section id="pokemon-list-section" class="section-block pokemon-list-hidden">
+                <h2>寶可夢列表</h2>
+                <p id="pokemon-count"></p>
+                <table class="TabelJS" role="grid">
+                    <tbody id="pokemon-list"></tbody>
+                </table>
+            </section>
+        </main>
+
+        <!-- 左側工具列 -->
+        <div id="sidebar">
+            <button id="search-toggle">🔍</button>
+            <button id="stats-toggle">📊</button>
         </div>
-      </section>
 
-      <!-- 依屬性 -->
-      <section class="section-block">
-        <p id="selected-types-display">依屬性： 未選擇</p>
-        <div class="button-group">
-          <button id="normal-button" class="type-btn" onclick="filterByType('normal')" aria-label="篩選一般屬性">
-            <span aria-hidden="true">🌀</span> 一般
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="fire-button" class="type-btn" onclick="filterByType('fire')" aria-label="篩選火屬性">
-            <span aria-hidden="true">🔥</span> 火
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="water-button" class="type-btn" onclick="filterByType('water')" aria-label="篩選水屬性">
-            <span aria-hidden="true">💧</span> 水
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="grass-button" class="type-btn" onclick="filterByType('grass')" aria-label="篩選草屬性">
-            <span aria-hidden="true">🌿</span> 草
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="electric-button" class="type-btn" onclick="filterByType('electric')" aria-label="篩選電屬性">
-            <span aria-hidden="true">⚡</span> 電
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="ice-button" class="type-btn" onclick="filterByType('ice')" aria-label="篩選冰屬性">
-            <span aria-hidden="true">❄️</span> 冰
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="fighting-button" class="type-btn" onclick="filterByType('fighting')" aria-label="篩選格鬥屬性">
-            <span aria-hidden="true">🥊</span> 格鬥
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="poison-button" class="type-btn" onclick="filterByType('poison')" aria-label="篩選毒屬性">
-            <span aria-hidden="true">☠️</span> 毒
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="ground-button" class="type-btn" onclick="filterByType('ground')" aria-label="篩選地面屬性">
-            <span aria-hidden="true">⛰️</span> 地面
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="flying-button" class="type-btn" onclick="filterByType('flying')" aria-label="篩選飛行屬性">
-            <span aria-hidden="true">🕊️</span> 飛行
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="psychic-button" class="type-btn" onclick="filterByType('psychic')" aria-label="篩選超能屬性">
-            <span aria-hidden="true">🔮</span> 超能
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="bug-button" class="type-btn" onclick="filterByType('bug')" aria-label="篩選蟲屬性">
-            <span aria-hidden="true">🐛</span> 蟲
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="rock-button" class="type-btn" onclick="filterByType('rock')" aria-label="篩選岩石屬性">
-            <span aria-hidden="true">🗿</span> 岩石
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="ghost-button" class="type-btn" onclick="filterByType('ghost')" aria-label="篩選幽靈屬性">
-            <span aria-hidden="true">👻</span> 幽靈
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="dragon-button" class="type-btn" onclick="filterByType('dragon')" aria-label="篩選龍屬性">
-            <span aria-hidden="true">🐉</span> 龍
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="dark-button" class="type-btn" onclick="filterByType('dark')" aria-label="篩選惡屬性">
-            <span aria-hidden="true">🌑</span> 惡
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="steel-button" class="type-btn" onclick="filterByType('steel')" aria-label="篩選鋼屬性">
-            <span aria-hidden="true">⚙️</span> 鋼
-            <span class="sr-only">屬性</span>
-          </button>
-          <button id="fairy-button" class="type-btn" onclick="filterByType('fairy')" aria-label="篩選妖精屬性">
-            <span aria-hidden="true">✨</span> 妖精
-            <span class="sr-only">屬性</span>
-          </button>
+        <!-- 搜尋視窗 -->
+        <div id="search-panel" class="hidden">
+            <input type="text" id="search-input" placeholder="搜尋寶可夢名稱或編號...">
+            <ul id="search-results"></ul>
         </div>
-      </section>
 
-      <!-- 顯示寶可夢列表 -->
-      <section id="pokemon-list-section" class="section-block pokemon-list-hidden">
-        <h2>寶可夢列表</h2>
-        <p id="pokemon-count"></p>
-        <table class="TabelJS" role="grid">
-          <thead>
-            <tr>
-              <th scope="col" width="5%">✔</th>
-              <th scope="col" width="10%">編號</th>
-              <th scope="col" width="30%">寶可夢</th>
-              <th scope="col" width="10%">屬性</th>
-              <th scope="col" width="10%">最高CP</th>
-              <th scope="col" width="10%">攻擊</th>
-              <th scope="col" width="10%">防禦</th>
-              <th scope="col" width="10%">耐力</th>
-              <th scope="col" width="5%">代</th>
-            </tr>
-          </thead>
-          <tbody id="pokemon-list"></tbody>
-        </table>
-      </section>
-    </main>
+        <!-- 數據視窗 -->
+        <div id="stats-panel" class="side-panel hidden"></div>
 
-    <button id="clear-collection-btn" class="clear-btn" aria-label="清除所有收藏資料">清除蒐集資料</button>
+        <button id="clear-collection-btn" class="clear-btn" aria-label="清除所有收藏資料">清除蒐集資料</button>
 
-    <footer class="footer">
-      <p>© 2025 Pokémon 收藏工具 by Tom</p>
-    </footer>
-  </div>
+        <footer class="footer">
+            <p>© 2025 Pokémon 收藏工具 by Tom</p>
+        </footer>
+    </div>
 
-  <script src="js/pokemon.js"></script>
+    <script src="js/pokemon.js"></script>
 </body>
 </html>
